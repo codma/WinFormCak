@@ -45,24 +45,100 @@ namespace WinFormCak
             string result = TbResult.Text;
 
 
+            //if (result.Contains("*"))
+            //{
+            //    TbResult.Text = Mul(result.Split('*')[0], result.Split('*')[1]).ToString();
+            //}
+            //if (result.Contains("÷"))
+            //{
+            //    TbResult.Text = Div(result.Split('÷')[0], result.Split('÷')[1]).ToString();
+            //}
+            //if (result.Contains("+"))
+            //{
+            //    TbResult.Text = Plus(result.Split('+')[0], result.Split('+')[1]).ToString();
+            //}
+            //if (result.Contains("-"))
+            //{
+            //    TbResult.Text = Minus(result.Split('-')[0], result.Split('-')[1]).ToString();
+            //}
+
+            //만약에 *가 있으면 앞뒤로 분리하여 값을 곱한다
+            //만약에 *, +가 있으면 *앞뒤로 분리하여 값을 
+            decimal mul_result = 0;
+            string mul_f = "";
+            string mul_b = "";
+
+            decimal div_result = 0;
+            string div_f = "";
+            string div_b = "";
+
+            decimal plus_result = 0;
+            string plus_f = "";
+            string plus_b = "";
+
+            decimal minus_result = 0;
+            string minus_f = "";
+            string minus_b = "";
+
             if (result.Contains("+"))
             {
-                TbResult.Text = Plus(result.Split('+')[0], result.Split('+')[1]).ToString();
+                plus_f = result.Split('+')[0];
+                if (plus_f.Contains("*"))
+                {
+                    mul_f = plus_f.Split('*')[0];
+                    if (mul_f.Contains("÷"))
+                    {
+                        div_f = mul_f.Split('÷')[0];
+                        div_b = mul_f.Split('÷')[1];
+                        div_result = Div(div_f, div_b);
+                        mul_f = div_result.ToString();
+                        div_result = 0;
+                    }
+                    mul_b = plus_f.Split('*')[1];
+                    if (mul_b.Contains("÷"))
+                    {
+                        div_f = mul_b.Split('÷')[0];
+                        div_b = mul_b.Split('÷')[1];
+                        div_result = Div(div_f, div_b);
+                        mul_b = div_result.ToString();
+                    }
+                    mul_result = Mul(mul_f, mul_b);
+                    plus_f = mul_result.ToString();
+                }
+                plus_b = result.Split('+')[1];
+                if (plus_b.Contains("*"))
+                {
+                    mul_f = plus_b.Split('*')[0];
+                    if (mul_f.Contains("÷"))
+                    {
+                        div_f = mul_f.Split('÷')[0];
+                        div_b = mul_f.Split('÷')[1];
+                        div_result = Div(div_f, div_b);
+                        mul_f = div_result.ToString();
+                    }
+                    mul_b = plus_b.Split('*')[1];
+                    if (mul_b.Contains("÷"))
+                    {
+                        div_f = mul_b.Split('÷')[0];
+                        div_b = mul_b.Split('÷')[1];
+                        div_result = Div(div_f, div_b);
+                        mul_b = div_result.ToString();
+                    }
+                    mul_result = Mul(mul_f, mul_b);
+                    plus_f = mul_result.ToString();
+                }
+
+                plus_result = Plus(plus_f, plus_b);
+                TbResult.Text = plus_result.ToString();
             }
-            if (result.Contains("-"))
-            {
-                TbResult.Text = Minus(result.Split('-')[0], result.Split('-')[1]).ToString();
-            }
-            if (result.Contains("*"))
-            {
-                TbResult.Text = Mul(result.Split('*')[0], result.Split('*')[1]).ToString();
-            }
-            if (result.Contains("÷"))
-            {
-                TbResult.Text = Div(result.Split('÷')[0], result.Split('÷')[1]).ToString();
-            }
+
+           
+
+
+
+
         }
-        
+
         private decimal Plus(string first, string second)
         {
             return decimal.Parse(first) + decimal.Parse(second);
