@@ -64,22 +64,23 @@ namespace WinFormCak
 
             //만약에 *가 있으면 앞뒤로 분리하여 값을 곱한다
             //만약에 *, +가 있으면 *앞뒤로 분리하여 값을 
-            decimal mul_result = 0;
-            string mul_f = "";
-            string mul_b = "";
+            decimal mul_result;
+            string mul_f;
+            string mul_b;
 
-            decimal div_result = 0;
-            string div_f = "";
-            string div_b = "";
+            decimal div_result;
+            string div_f;
+            string div_b;
 
-            decimal plus_result = 0;
-            string plus_f = "";
-            string plus_b = "";
+            decimal plus_result;
+            string plus_f;
+            string plus_b;
 
-            decimal minus_result = 0;
-            string minus_f = "";
-            string minus_b = "";
+            decimal minus_result;
+            string minus_f;
+            string minus_b;
 
+            //추가 필요. +를 포함하지 않고 다른 연산자를 포함하는 경우 추가 필요
             if (result.Contains("+"))
             {
                 plus_f = result.Split('+')[0];
